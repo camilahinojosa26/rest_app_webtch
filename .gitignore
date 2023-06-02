@@ -3,3 +3,4 @@
 
 # Ignore Bootsnap cache
 /tmp/cache/bootsnap/
+tmp/cache/bootsnap/
