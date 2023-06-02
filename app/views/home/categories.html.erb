@@ -1,0 +1,51 @@
+<h2><%= @restaurant.name %></h2>
+
+<div class="accordion" id="accordionExample">
+  <% @categories.each_with_index do |category, index| %>
+    <% main_dishes = @restaurant.items.select { |item| item.dish.name == category } %>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="heading<%= index %>">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%= index %>" aria-expanded="false" aria-controls="collapse<%= index %>">
+          <%= category %>
+        </button>
+      </h2>
+      <div id="collapse<%= index %>" class="accordion-collapse collapse" aria-labelledby="heading<%= index %>" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <% if main_dishes.any? %>
+            <ul>
+              <% main_dishes.each do |item| %>
+                <li><%= item.name %></li>
+              <% end %>
+            </ul>
+          <% else %>
+            <p>No dishes found for this category.</p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const accordions = document.querySelectorAll('.accordion-item');
+    accordions.forEach(function (accordion) {
+      const button = accordion.querySelector('.accordion-button');
+      const collapse = accordion.querySelector('.accordion-collapse');
+
+      button.addEventListener('click', function () {
+        collapse.classList.toggle('show');
+      });
+    });
+  });
+</script>
+
+<%= link_to root_path, class: "back-button" do %>
+    <button>
+      <svg height="16" width="16" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1024 1024">
+        <path d="M874.690416 495.52477c0 11.2973-9.168824 20.466124-20.466124 20.466124l-604.773963 0 188.083679 188.083679c7.992021 7.992021 7.992021 20.947078 0 28.939099-4.001127 3.990894-9.240455 5.996574-14.46955 5.996574-5.239328 0-10.478655-1.995447-14.479783-5.996574l-223.00912-223.00912c-3.837398-3.837398-5.996574-9.046027-5.996574-14.46955 0-5.433756 2.159176-10.632151 5.996574-14.46955l223.019353-223.029586c7.992021-7.992021 20.957311-7.992021 28.949332 0 7.992021 8.002254 7.992021 20.957311 0 28.949332l-188.073446 188.073446 604.753497 0C865.521592 475.058646 874.690416 484.217237 874.690416 495.52477z"></path>
+      </svg>
+      <span>Back</span>
+    </button>
+  <% end %>
+</section>

@@ -1,0 +1,19 @@
+<h1>Dish Details</h1>
+
+<% if flash[:success] %>
+  <p style="color: green"><%= flash[:success] %></p>
+<% end %>
+
+<h2>Name: <%= @dish.name %></h2>
+
+<div>
+  <% @dish.items.each do |item| %>
+    <p>Name: <%= item.name %></p>
+  <% end %>
+</div>
+
+<p>
+  <%= link_to 'Edit Dish', edit_dish_path(@dish), class: 'btn btn-primary' %>
+  <%= link_to 'Destroy this Dish', @dish, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+  <%= link_to 'Back to Dishes', dishes_path, class: 'btn btn-secondary' %>
+</p>

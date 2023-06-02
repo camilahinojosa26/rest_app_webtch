@@ -1,0 +1,10 @@
+<h1>Item Details</h1>
+
+<p style="color: green"><%= notice %></p>
+
+<h2>Name: <%= @item.name %></h2>
+<!-- Display other attributes of the item as needed -->
+
+<%= link_to 'Edit Item', edit_item_path(@item), class: 'btn btn-primary' %>
+<%= button_to 'Destroy Item', item_path(@item), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+<%= link_to 'Back to Items', items_path, class: 'btn btn-primary' %>

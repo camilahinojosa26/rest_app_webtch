@@ -1,0 +1,29 @@
+<h1>New Item</h1>
+
+<%= form_with(model: @item, url: items_path) do |form| %>
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+  <div>
+    <%= form.label :price %>
+    <%= form.text_field :price %>
+  </div>
+  <div>
+    <%= form.label :callories %>
+    <%= form.text_field :callories %>
+  </div>
+  <div>
+    <%= form.label :dish_id %>
+    <%= form.collection_select :dish_id, @dishes, :id, :name %>
+  </div>
+  <div>
+    <%= form.label :restaurant_id %>
+    <%= form.collection_select :restaurant_id, @restaurants, :id, :name %>
+  </div>
+  <div>
+    <%= form.submit 'Save', class: 'btn btn-primary' %>
+  </div>
+<% end %>
+
+<%= link_to 'Back to Items', items_path, class: 'btn btn-primary' %>
