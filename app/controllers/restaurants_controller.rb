@@ -58,6 +58,18 @@ class RestaurantsController < ApplicationController
     end
   end
 
+  def search
+    search_term = params[:search]
+    @restaurants = Restaurant.where('name LIKE ?', "%#{search_term}%")
+    @items = Item.where('name LIKE ?', "%#{search_term}%")
+
+    if @restaurants.empty? && @items.empty?
+      render json: { message: 'No results found' }
+    else
+      render json: { restaurants: @restaurants, items: @items }
+    end
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_restaurant

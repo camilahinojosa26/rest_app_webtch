@@ -36,6 +36,8 @@ Rails.application.routes.draw do
   root 'home#index'
 
   get '/categories', to: 'home#categories', as: 'categories'
+  post '/restaurants/search', to: 'restaurants#search'
+
 
 
 

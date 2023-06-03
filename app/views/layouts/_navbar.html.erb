@@ -18,22 +18,40 @@
         <li class="nav-item">
           <%= link_to 'Items', items_path, class: 'nav-link' %>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href=# id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <form class="d-flex" id="search-form">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="search-input">
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
     </div>
   </div>
 </nav>
+
+<script>
+  document.getElementById('search-form').addEventListener('submit', function (event) {
+    event.preventDefault(); // Prevent the form from submitting normally
+
+    var searchInput = document.getElementById('search-input').value.toLowerCase(); // Get the value from the search input field and convert to lowercase
+
+    var restaurantItems = document.getElementsByClassName('restaurant-item'); // Get all restaurant items
+    var found = false; // Flag to track if a match is found
+
+    // Loop through each restaurant item
+    for (var i = 0; i < restaurantItems.length; i++) {
+      var restaurantName = restaurantItems[i].getAttribute('data-restaurant-name').toLowerCase(); // Get the restaurant name from the data attribute and convert to lowercase
+
+      if (restaurantName.includes(searchInput)) {
+        // If the search term is found in the restaurant name, show the item
+        restaurantItems[i].style.display = 'block';
+        found = true; // Set the flag to true indicating a match is found
+      } else {
+        // If the search term is not found in the restaurant name, hide the item
+        restaurantItems[i].style.display = 'none';
+      }
+    }
+
+    // Show/hide the "not found" message based on the flag
+    var notFoundMessage = document.getElementById('not-found-message');
+    notFoundMessage.style.display = found ? 'none' : 'block';
+  });
+</script>
