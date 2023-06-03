@@ -19,39 +19,47 @@
           <%= link_to 'Items', items_path, class: 'nav-link' %>
         </li>
       </ul>
-      <form class="d-flex" id="search-form">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="search-input">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+      <div class="search-container">
+        <input type="text" id="search-input" placeholder="Search for restaurants...">
+        <button id="search-btn">Search</button>
+      </div>
     </div>
+    <div id="search-results"></div>
   </div>
 </nav>
 
 <script>
-  document.getElementById('search-form').addEventListener('submit', function (event) {
-    event.preventDefault(); // Prevent the form from submitting normally
+  document.getElementById("search-btn").addEventListener("click", function(event) {
+  event.preventDefault(); // Prevent form submission
 
-    var searchInput = document.getElementById('search-input').value.toLowerCase(); // Get the value from the search input field and convert to lowercase
+  const searchQuery = document.getElementById("search-input").value;
+  searchRestaurants(searchQuery);
+});
+function searchRestaurants(query) {
+  const url = `https://your-api-endpoint.com/restaurants?name=${query}`;
 
-    var restaurantItems = document.getElementsByClassName('restaurant-item'); // Get all restaurant items
-    var found = false; // Flag to track if a match is found
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      // Handle the response data (e.g., update UI with search results)
+      displaySearchResults(data);
+    })
+    .catch(error => {
+      console.error("An error occurred during the search:", error);
+    });
+}
+function displaySearchResults(results) {
+  const searchResultsContainer = document.getElementById("search-results");
 
-    // Loop through each restaurant item
-    for (var i = 0; i < restaurantItems.length; i++) {
-      var restaurantName = restaurantItems[i].getAttribute('data-restaurant-name').toLowerCase(); // Get the restaurant name from the data attribute and convert to lowercase
+  // Clear previous search results
+  searchResultsContainer.innerHTML = "";
 
-      if (restaurantName.includes(searchInput)) {
-        // If the search term is found in the restaurant name, show the item
-        restaurantItems[i].style.display = 'block';
-        found = true; // Set the flag to true indicating a match is found
-      } else {
-        // If the search term is not found in the restaurant name, hide the item
-        restaurantItems[i].style.display = 'none';
-      }
-    }
+  // Process and display the new search results
+  results.forEach(result => {
+    const restaurantElement = document.createElement("div");
+    restaurantElement.textContent = result.name;
 
-    // Show/hide the "not found" message based on the flag
-    var notFoundMessage = document.getElementById('not-found-message');
-    notFoundMessage.style.display = found ? 'none' : 'block';
+    searchResultsContainer.appendChild(restaurantElement);
   });
+}
 </script>
