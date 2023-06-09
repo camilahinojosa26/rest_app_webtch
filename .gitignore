@@ -1,5 +1,7 @@
 # Ignore Sprockets cache
 /tmp/cache/assets/sprockets/
+tmp/cache/bootsnap/compile-cache-iseq/
+
 
 # Ignore Bootsnap cache
 /tmp/cache/bootsnap/

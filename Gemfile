@@ -5,6 +5,8 @@ ruby "3.2.0"
 
 gem 'webtech', git: 'https://github.com/ICC4103-202310-WebTech/webtech-lab-tests.git', branch: 'main'
 
+gem 'devise'
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4", ">= 7.0.4.3"
 

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  devise_for :users
+  
   get 'home/index'
   
   resources :restaurants do 
@@ -37,6 +39,13 @@ Rails.application.routes.draw do
 
   get '/categories', to: 'home#categories', as: 'categories'
   post '/restaurants/search', to: 'restaurants#search'
+
+  devise_for :users, controllers: {
+    registrations: 'users/registrations',
+    sessions: 'users/sessions',
+    passwords: 'users/passwords'
+  }
+  
 
 
 
